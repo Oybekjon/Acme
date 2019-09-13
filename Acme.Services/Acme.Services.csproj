@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acme.Core\Acme.Core.csproj" />
+    <ProjectReference Include="..\Acme.Data\Acme.Data.csproj" />
+    <ProjectReference Include="..\Acme.DomainObjects\Acme.DomainObjects.csproj" />
+  </ItemGroup>
+
+</Project>
