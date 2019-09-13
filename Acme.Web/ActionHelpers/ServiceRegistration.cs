@@ -15,7 +15,7 @@ namespace Acme.Web.ActionHelpers
         {
             services.AddSingleton<IInstantMessage<TextMessage>, InstantMessage<TextMessage>>();
             services.AddSingleton<IInstantMessage<ChatInfo>, InstantMessage<ChatInfo>>();
-
+            services.AddScoped<ITextMessaging, TextMessaging>();
         }
     }
 }

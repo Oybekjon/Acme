@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Acme.Services
 {
-    public class TextMessaging
+    public class TextMessaging : ITextMessaging
     {
         private IInstantMessage<TextMessage> InstantMessageService;
         public TextMessaging(IInstantMessage<TextMessage> instantMessageService)
@@ -18,7 +18,8 @@ namespace Acme.Services
         {
             // check huyo moyo
             Guard.NotNull(message, nameof(message));
-            InstantMessageService.AddMessage(new Message<TextMessage> {
+            InstantMessageService.AddMessage(new Message<TextMessage>
+            {
                 Value = message,
                 CreatedUtcDate = DateTime.UtcNow
             });
