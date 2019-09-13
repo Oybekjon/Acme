@@ -13,6 +13,7 @@ namespace Acme.Services.Test
     [TestClass]
     public class UserServiceTest
     {
+
         private readonly Mock<RepositoryContextBase> Context;
         private readonly Mock<IRepository<User>> Repository;
 
@@ -47,6 +48,16 @@ namespace Acme.Services.Test
                         LastName = "Jumaniyoz"
                     }
                 }.AsQueryable());
+
+            Context.Setup(x => x.GetRepository<User>()).Returns(Repository.Object);
+        }
+
+        private void SetupMocksRegisterSuccess()
+        {
+            Repository.Setup(x => x.Where(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns(new List<User> { }.AsQueryable());
+            Repository.Setup(x => x.Store(It.IsAny<User>()));
+            Repository.Setup(x => x.SaveChanges()).Returns(1);
 
             Context.Setup(x => x.GetRepository<User>()).Returns(Repository.Object);
         }
@@ -122,6 +133,21 @@ namespace Acme.Services.Test
                 Assert.Fail("Incorrect exception during duplicate");
             }
 
+        }
+
+        [TestMethod]
+        public void RegisterSuccess()
+        {
+            SetupMocksRegisterSuccess();
+            var context = Context.Object;
+            var srv = new UserService(context);
+            srv.Register(new ViewModels.RegisterViewModel
+            {
+                Email = "jumaniyozov@oybek.com",
+                Password = "123456",
+                PasswordConfirmation = "123456"
+            });
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
